@@ -13,7 +13,8 @@ from python.src.main.python.rhapi import RhApi, CLIClient
 chdir(test_source_dir)
 
 # App URL
-URL  = "http://localhost:8112"
+#URL  = "http://localhost:8112"
+URL  = "http://gem-machine-a:8113"
 SCHEMA_NAME = u'store'
 TABLE = u'customer'
 COUNT = 1
