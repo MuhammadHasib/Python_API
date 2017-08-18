@@ -1,16 +1,7 @@
-from rhapi import *
-import requests
-import json
-resp = 'http://gem-machine-a:8113/'
+from rhapi import RhApi
 
-query = 'query/15de0ec097c/data'
+API_URL = 'http://gem-machine-a:8113'
+q = 'select c.part_serial_number,c.IMON_UA, c.GAIN, c.GAIN_ERROR from gem_omds.c4260 c'
 
-url = resp + query
-print (url)
-
-json_data = requests.get(url).json()
-
-#print (json_data)
-json_more = json_data['data'][0]
-print(json_more)
-
+api = RhApi(API_URL, debug = False)
+data = api.json(q)
