@@ -23,15 +23,15 @@ graphCount = 0
 PART_SERIAL_NUMBER = '';
 for m in measurements:
 	# for each measurement
-	measurementCount += 1
-	old_PART_SERIAL_NUMBER = PART_SERIAL_NUMBER
-	PART_SERIAL_NUMBER = m[0]
-	list_IMON_UA.append( m[1] )
-	list_GAIN.append( m[2] )
-	list_GAIN_ERROR.append( m[3] )
-	list_RATE_HZ.append( m[4] )
-	list_RATE_ERROR_HZ.append( m [5] )
-	if (measurementCount > 0 and  list_IMON_UA[len(list_IMON_UA) - 1] >  list_IMON_UA[len(list_IMON_UA) - 2]):
+    measurementCount += 1
+    old_PART_SERIAL_NUMBER = PART_SERIAL_NUMBER
+    PART_SERIAL_NUMBER = m[0]
+    list_IMON_UA.append( m[1] )
+    list_GAIN.append( m[2] )
+    list_GAIN_ERROR.append( m[3] )
+    list_RATE_HZ.append( m[4] )
+    list_RATE_ERROR_HZ.append( m [5] )
+    if (measurementCount > 1 and  list_IMON_UA[len(list_IMON_UA) - 1] >  list_IMON_UA[len(list_IMON_UA) - 2]):
 		# if the measurement just read is from a new set of measurements
 		# all elements in the lists represent a unique set of measurement, except for the last element
 		graphCount += 1
@@ -43,7 +43,7 @@ for m in measurements:
 		c.SetLogy()
 		c.SetGrid()
 		# n is the number of point in the graph
-		n = len(list_IMON_UA) - 1
+		n = len(list_IMON_UA) 
 		x, xErr, y, yErr, logY, y2, y2Err = array('d'), array('d'), array('d'), array('d'), array('d'), array('d'), array('d')
 		
 		for i in range( n ):
@@ -79,7 +79,7 @@ for m in measurements:
                 r = gr.Fit(f, "S")
 		c.cd()
 		# -- DRAWS LEGEND --
-                legend = TLegend(0.3, 0.3)
+                legend = TLegend(0.3, 0.3,0.1,0.1)
                 legend.AddEntry(gr,"","P")
                 legend.AddEntry(gr2,"","P")
                 legend.AddEntry("r", "Expon. (Gain)", "l")
