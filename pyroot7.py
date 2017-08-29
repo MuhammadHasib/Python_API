@@ -17,9 +17,10 @@ from math import log
 from ROOT import *
 from rhapi import RhApi
 API_URL = 'http://gem-machine-a:8113'
-q = 'select c.part_serial_number, c.IMON_UA, c.GAIN, c.GAIN_ERROR, c.RATE_HZ, c.RATE_ERROR_HZ from gem_omds.c4260 c'
+#q = 'select c.part_serial_number, c.IMON_UA, c.GAIN, c.GAIN_ERROR, c.RATE_HZ, c.RATE_ERROR_HZ from gem_omds.c4260 c'
+q = 'select * from gem_omds.gem_chmbr_qc5_effgain_v c'
 api = RhApi(API_URL, debug = False)
-print api.csv(q)
+#print api.csv(q)
 data = api.json(q)
 
 
@@ -34,20 +35,28 @@ measurements = data['data']
 measurementCount = 0
 graphCount = 0
 PART_SERIAL_NUMBER = '';
+RUN_NUMBER = '';
+RUN_TYPE = '';
 for m in measurements:
 	# for each measurement
 	measurementCount += 1
 	old_PART_SERIAL_NUMBER = PART_SERIAL_NUMBER
+	old_RUN_NUMBER = RUN_NUMBER
+	old_RUN_TYPE = RUN_TYPE
 	PART_SERIAL_NUMBER = m[0]
-	list_IMON_UA.append( m[1] )
-	list_GAIN.append( m[2] )
-	list_GAIN_ERROR.append( m[3] )
-	list_RATE_HZ.append( m[4] )
-	list_RATE_ERROR_HZ.append( m [5] )
-	if (measurementCount > 0 and  list_IMON_UA[len(list_IMON_UA) - 1] >  list_IMON_UA[len(list_IMON_UA) - 2]):
+	RUN_TYPE = m[2]
+	RUN_NUMBER = m[3]
+	list_IMON_UA.append( m[8] )
+	list_GAIN.append( m[15] )
+	list_GAIN_ERROR.append( m[16] )
+	list_RATE_HZ.append( m[11] )
+	list_RATE_ERROR_HZ.append( m [12] )
+	#if (measurementCount > 0 and  list_IMON_UA[len(list_IMON_UA) - 1] >  list_IMON_UA[len(list_IMON_UA) - 2]):
+	if (measurementCount > 1 and  old_RUN_NUMBER != RUN_NUMBER):
 		# if the measurement just read is from a new set of measurements
 		# all elements in the lists represent a unique set of measurement, except for the last element
 		graphCount += 1
+		print graphCount, old_PART_SERIAL_NUMBER, old_RUN_NUMBER
 		# create graph
 		c = TCanvas( 'c'+str(graphCount), 'Gain Uniformity', 200, 10, 700, 500 )
 		#c = TCanvas( 'c', 'c', 200, 10, 700, 500 )
@@ -56,7 +65,8 @@ for m in measurements:
 		c.SetLogy()
 		c.SetGrid()
 		# n is the number of point in the graph
-		n = len(list_IMON_UA) - 1
+		n = len(list_IMON_UA) -1
+		#print n
 		x, xErr, y, yErr, logY, y2, y2Err = array('d'), array('d'), array('d'), array('d'), array('d'), array('d'), array('d')
 		for i in range( n ):
 			x.append( list_IMON_UA[i] )
@@ -93,9 +103,9 @@ for m in measurements:
 		img.FromPad(c)
 		img.WriteImage('gQC5_Gain_Imon' + str(graphCount) + '_' + old_PART_SERIAL_NUMBER.replace('/','-') + '.png')
 		# updates the lists to only have the values of the last measurement
-		list_IMON_UA = [ m[1] ]
-		list_GAIN = [ m[2] ]
-		list_GAIN_ERROR = [ m[3] ]
+		list_IMON_UA = [ m[8] ]
+		list_GAIN = [ m[15] ]
+		list_GAIN_ERROR = [ m[16] ]
 
 # prints information on analyzed data. This information is generated with negligible processing cost.
 print 'data retrieved from '+str(measurementCount)+' measurements,'
