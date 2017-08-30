@@ -4,7 +4,7 @@ from math import exp, log
 from ROOT import *
 from rhapi import RhApi
 API_URL = 'http://gem-machine-a:8113'
-q = 'select * from gem_omds.gem_chmbr_qc3_gasleak_v c'
+q = 'select c.CHMBR_SER_NUMBR, c.RUN_TYPE, c.RUN_NUMBER, c.INCRMNT_SEC, c.AMB_PRSR_MBAR, c.MANF_PRSR_MBAR, c.TEMP_DEGC from gem_omds.gem_chmbr_qc3_gasleak_v c'
 api = RhApi(API_URL, debug = False)
 data = api.json(q)
 #print api.csv(q) # uncomment to debug
@@ -31,23 +31,23 @@ for m in measurements:
 	old_RUN_NUMBER = RUN_NUMBER
 	old_RUN_TYPE = RUN_TYPE
 	PART_SERIAL_NUMBER = m[0]
-	RUN_TYPE = m[2]
-	RUN_NUMBER = m[3]
-	list_incrmnt_sec.append( m[5] )
-	list_AMB_PRSR_MBAR.append( 35.0 / 100.0 * (m[7] - 900.0) )
-	list_MANF_PRSR_MBAR.append( m[6] )
-	list_TEMP_DEGC.append( m[8] )
+	RUN_TYPE = m[1]
+	RUN_NUMBER = m[2]
+	list_incrmnt_sec.append( m[3] / 60 )
+	list_AMB_PRSR_MBAR.append( 35.0 / 100.0 * (m[4] - 900.0) )
+	list_MANF_PRSR_MBAR.append( m[5] )
+	list_TEMP_DEGC.append( m[6] )
 
 	#if (measurementCount > 0 and  list_IMON_UA[len(list_IMON_UA) - 1] >  list_IMON_UA[len(list_IMON_UA) - 2]):
-	if (measurementCount > 2 and  old_RUN_NUMBER != RUN_NUMBER or old_PART_SERIAL_NUMBER != PART_SERIAL_NUMBER):
+	if (measurementCount > 1 and  (old_RUN_NUMBER != RUN_NUMBER or old_PART_SERIAL_NUMBER != PART_SERIAL_NUMBER)):
 		# if the measurement just read is from a new set of measurements
 		# all elements in the lists represent a unique set of measurement, except for the last element
 		graphCount += 1
 		print graphCount, old_PART_SERIAL_NUMBER, old_RUN_NUMBER
 		# create graph
 		c = TCanvas( 'c'+str(graphCount),'c'+ str(graphCount), 200, 10, 700, 500 )
-		c.DrawFrame(0, 0, 3500, 35)
-		c.SetGrid()
+		c.DrawFrame(0, 0, 70, 35)
+		#c.SetGrid()
 		 # n is the number of points in the graph
 		n = len(list_incrmnt_sec)
 		#n = len(str((old_RUN_NUMBER))
@@ -97,7 +97,7 @@ for m in measurements:
 		legend.AddEntry(blank,"#chi^{2} ="+str(round(r.Chi2(), 5)), "p")
 		legend.Draw()
 		# -- DRAWS AXIS --
-		rightAxis =  TGaxis(3500,0,3500,35,900,1000,50510,"+L")
+		rightAxis =  TGaxis(70,0,70,35,900,1000,50510,"+L")
 		rightAxis.SetLabelSize(0.03)
 		rightAxis.SetTitleSize(0.02)
 		rightAxis.Draw()
@@ -105,20 +105,20 @@ for m in measurements:
 		description = TLatex()
 		description.SetTextSize(0.03);
 		description.SetTextAngle(0.0);
-		description.DrawLatex(1700, -3, "Time (s)")
+		description.DrawLatex(30, -3, "Time (m)")
 		description.SetTextAngle(90.0)	
-		description.DrawLatex(-250, 10.7, "Internal pressure (mBar)")
-		description.DrawLatex(-150, 12.8, "Temperature (C)")
-		description.DrawLatex(3800, 11.5, "Atm pressure (mBar)")
+		description.DrawLatex(-5, 10.7, "Internal pressure (mBar)")
+		description.DrawLatex(-3, 12.8, "Temperature (C)")
+		description.DrawLatex(75, 11.5, "Atm pressure (mBar)")
 		# -- CREATES FINAL IMAGE --
 		img = TImage.Create()
 		img.FromPad(c)
 		img.WriteImage('gQC3_' + str(graphCount) + '_' + old_PART_SERIAL_NUMBER.replace('/','-') + '.png')
 		# updates the lists to only have the values of the last measurement
-		list_incrmnt_sec = [ m[5] ]
-		list_AMB_PRSR_MBAR = [ 35.0 / 100.0 * (m[7] - 900.0) ]
-		list_MANF_PRSR_MBAR = [ m[6] ]
-		list_TEMP_DEGC = [ m[8] ]
+		list_incrmnt_sec = [ m[3] / 60 ]
+		list_AMB_PRSR_MBAR = [ 35.0 / 100.0 * (m[4] - 900.0) ]
+		list_MANF_PRSR_MBAR = [ m[5] ]
+		list_TEMP_DEGC = [ m[6] ]
 		c.Close()		
 
 # prints information on analyzed data. This information is generated with negligible processing cost.
