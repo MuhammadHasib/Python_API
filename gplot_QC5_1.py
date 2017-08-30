@@ -106,6 +106,7 @@ for m in measurements:
 		description.SetTextSize(0.05);
 		description.SetTextAngle(0.0);
 		description.DrawLatex(580, 3, "Divider current (#muA)")
+		description.DrawLatex(580, 1002000, old_PART_SERIAL_NUMBER)
 		description.SetTextAngle(90.0)
 		description.DrawLatex(480, 400, "Effective Gain")
 		description.DrawLatex(775, 800, "Rate (Hz)")

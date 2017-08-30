@@ -106,6 +106,7 @@ for m in measurements:
 		description.SetTextSize(0.03);
 		description.SetTextAngle(0.0);
 		description.DrawLatex(30, -3, "Time (m)")
+		description.DrawLatex(30, 37, old_PART_SERIAL_NUMBER)
 		description.SetTextAngle(90.0)	
 		description.DrawLatex(-5, 10.7, "Internal pressure (mBar)")
 		description.DrawLatex(-3, 12.8, "Temperature (C)")
