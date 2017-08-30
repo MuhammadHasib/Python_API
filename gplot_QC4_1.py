@@ -38,8 +38,7 @@ for m in measurements:
 	list_RATE_HZ.append( m[5] * 200.0 )
 	list_ERR_RATE_HZ.append( m[6] * 200.0 )
 	# print m # uncomment to debug
-	if (measurementCount > 1 and  list_IMON_UA[len(list_IMON_UA) - 1] <  list_IMON_UA[len(list_IMON_UA) - 2]):
-	#if (measurementCount > 1 and  old_RUN_NUMBER != RUN_NUMBER or old_PART_SERIAL_NUMBER != PART_SERIAL_NUMBER ):
+	if (measurementCount > 1 and  (old_RUN_NUMBER != RUN_NUMBER or old_PART_SERIAL_NUMBER != PART_SERIAL_NUMBER)):
 		graphCount += 1
 		# prints information on the analyzed data
 		#print graphCount, old_PART_SERIAL_NUMBER, old_RUN_NUMBER
@@ -80,7 +79,7 @@ for m in measurements:
 		f.SetLineColor(kGreen-6)
 		r = gr.Fit(f, "S")
 		# -- DRAWS LEGEND --
-		legend = TLegend(0.3, 0.3,0.1,0.1)
+		legend = TLegend(0.3, 0.7,0.1,0.9)
 		legend.AddEntry(gr,"","P")
 		legend.AddEntry(gr2,"","P")
 		legend.AddEntry("r", "Linear (IV Curve)", "l")
