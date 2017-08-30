@@ -98,6 +98,7 @@ for m in measurements:
 		description.SetTextSize(0.03);
 		description.SetTextAngle(0.0);
 		description.DrawLatex(380, -600, "Current Drawn (#muA)")
+		description.DrawLatex(380, 6500, old_PART_SERIAL_NUMBER)
 		description.SetTextAngle(90.0)	
 		description.DrawLatex(-100, 2100, "Applied Voltage (V)")
 		description.DrawLatex(1070, 2600, "Rate (Hz)")
