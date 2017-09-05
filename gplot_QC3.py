@@ -34,7 +34,8 @@ for m in measurements:
 	RUN_TYPE = m[1]
 	RUN_NUMBER = m[2]
 	list_incrmnt_sec.append( m[3] / 60 )
-	list_AMB_PRSR_MBAR.append( 35.0 / 100.0 * (m[4] - 900.0) )
+	#list_AMB_PRSR_MBAR.append( 35.0 / 100.0 * (m[4] - 900.0) )
+	list_AMB_PRSR_MBAR.append( m[4] )
 	list_MANF_PRSR_MBAR.append( m[5] )
 	list_TEMP_DEGC.append( m[6] )
 
@@ -117,7 +118,8 @@ for m in measurements:
 		img.WriteImage('gQC3_' + str(graphCount) + '_' + old_PART_SERIAL_NUMBER.replace('/','-') + '.png')
 		# updates the lists to only have the values of the last measurement
 		list_incrmnt_sec = [ m[3] / 60 ]
-		list_AMB_PRSR_MBAR = [ 35.0 / 100.0 * (m[4] - 900.0) ]
+		#list_AMB_PRSR_MBAR = [ 35.0 / 100.0 * (m[4] - 900.0) ]
+		list_AMB_PRSR_MBAR = [  m[4] ]
 		list_MANF_PRSR_MBAR = [ m[5] ]
 		list_TEMP_DEGC = [ m[6] ]
 		c.Close()		
