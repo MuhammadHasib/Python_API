@@ -225,7 +225,7 @@ class CLIClient_test_cases(unittest.TestCase):
         t_f_tables = system('python '+RHAPI_PATH+' -u '+URL+' store')  
         
         self.assertEquals(0,t_f_tables)    
-        print '----------------------------------------------------------------' 
+        #print '----------------------------------------------------------------' 
         sys.stdout.flush()
 
     def test_CLIClient_table_metadata(self):
