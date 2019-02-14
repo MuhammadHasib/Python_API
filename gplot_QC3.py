@@ -7,7 +7,7 @@ API_URL = 'http://gem-machine-a:8113'
 q = 'select c.CHMBR_SER_NUMBR, c.RUN_TYPE, c.RUN_NUMBER, c.INCRMNT_SEC, c.AMB_PRSR_MBAR, c.MANF_PRSR_MBAR, c.TEMP_DEGC from gem_omds.gem_chmbr_qc3_gasleak_v c'
 api = RhApi(API_URL, debug = False)
 data = api.json(q)
-#print api.csv(q) # uncomment to debug
+print api.csv(q) # uncomment to debug
 
 #print data
 # initializes lists of parameters
@@ -125,5 +125,5 @@ for m in measurements:
 		c.Close()		
 
 # prints information on analyzed data. This information is generated with negligible processing cost.
-print 'data retrieved from '+str(measurementCount)+' measurements,'
+#print 'data retrieved from '+str(measurementCount)+' measurements,'
 print 'distributed in '+str(graphCount)+' sets.'
