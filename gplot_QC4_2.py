@@ -7,7 +7,7 @@ API_URL = 'http://gem-machine-a:8113'
 q = 'select c.part_serial_number, c.RNORM_MOHM, c.VMON_VLT from gem_omds.c1920 c'
 api = RhApi(API_URL, debug = False)
 data = api.json(q)
-# print api.csv(q) # uncomment to debug
+ print api.csv(q) # uncomment to debug
 
 # initializes lists of parameters
 list_RNORM_MOHM = []
@@ -24,7 +24,7 @@ for m in measurements:
         PART_SERIAL_NUMBER = m[0]
         list_RNORM_MOHM.append( m[1] )
         list_VMON_VLT.append( m[2] )
-	# print m # uncomment to debug
+	print m # uncomment to debug
         if (measurementCount > 1 and  list_VMON_VLT[len(list_VMON_VLT) - 1] <  list_VMON_VLT[len(list_VMON_VLT) - 2]):
                 graphCount += 1
 		# prints information on the analyzed data
