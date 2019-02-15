@@ -9,7 +9,7 @@ q = 'select c.CHMBR_SER_NUMBR,c.RUN_TYPE,c.RUN_NUMBER,c.IMON_UA,c.VMON_VLT,c.RAT
 api = RhApi(API_URL, debug = False)
 data = api.json(q)
 print api.csv(q) # uncomment to debug
-#print data
+print data
 
 # initializes lists of parameters
 list_IMON_UA = []
@@ -47,7 +47,7 @@ for m in measurements:
 		# create graph
 		c = TCanvas( 'c'+str(graphCount),str(old_PART_SERIAL_NUMBER), 200, 10, 700, 500 )
 		c.DrawFrame(0, 0, 1000, 6000)
-		#c.SetGrid()
+		c.SetGrid()
 		# n is the number of points in the graph
 		n = len(list_IMON_UA)
 		print n
