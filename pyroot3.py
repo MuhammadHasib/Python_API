@@ -20,7 +20,7 @@ data = api.json(q)
 
 # starts parsing json data
 measurements = data['data']
-#print measurements
+print measurements
 for m in measurements:
 	print m
 
