@@ -102,5 +102,5 @@ for m in measurements:
 		c.Close()		
 
 # prints information on analyzed data. This information is generated with negligible processing cost.
-print 'data retrieved from '+str(measurementCount)+' measurements,'
-print 'distributed in '+str(graphCount)+' sets.'
+#print 'data retrieved from '+str(measurementCount)+' measurements,'
+#print 'distributed in '+str(graphCount)+' sets.'
