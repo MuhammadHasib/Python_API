@@ -357,17 +357,17 @@ class CLIClient:
 
             self.parser.error('Command %s not understood' % arg)
 
-        except RhApiRowLimitError, e:
+        except RhApiRowLimitError as e:
             
-            print "ERROR: %s\nDetails: %s, consider --all option" % (type(e).__name__, e)
+            print ("ERROR: %s\nDetails: %s, consider --all option" % (type(e).__name__, e))
 
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError as e:
             
-            print "ERROR: %s\nDetails: %s" % (e.reason, e.read())
+            print ("ERROR: %s\nDetails: %s" % (e.reason, e.read()))
             
-        except Exception, e:
+        except Exception as e:
             
-            print "ERROR: %s\nDetails: %s" % (type(e).__name__, e)
+            print ("ERROR: %s\nDetails: %s" % (type(e).__name__, e))
 
 if __name__ == '__main__':
 
