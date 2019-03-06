@@ -327,17 +327,17 @@ class CLIClient:
                                         root = minidom.parseString(res).documentElement
                                         for row in root.getElementsByTagName('row'):
                                             print (row.toxml()),
-                                    print '</data>'
+                                    print ('</data>')
                                 else:
                                     raise e
 
                         if options.format in ['json','json2']:
                             try:
                                 if options.format == 'json':
-                                    print api.json(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose, cols = options.cols)
+                                    print (api.json(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose, cols = options.cols))
                                 else:
-                                    print api.json2(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose, cols = options.cols)
-                            except RhApiRowLimitError, e:
+                                    print (api.json2(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose, cols = options.cols))
+                            except RhApiRowLimitError as e:
                                 if options.all:
                                     page = 0
                                     print '{"data": [', 
