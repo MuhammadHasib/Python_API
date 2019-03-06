@@ -301,7 +301,7 @@ class CLIClient:
                         if options.format == 'csv':
                             try:
                                 print (api.csv(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose))
-                            except RhApiRowLimitError, e:
+                            except RhApiRowLimitError as e:
                                 if options.all:
                                     page = 0
                                     while (page * e.rowsLimit) < e.count:
@@ -317,16 +317,16 @@ class CLIClient:
                         if options.format == 'xml':
                             try:
                                 print (api.xml(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose))
-                            except RhApiRowLimitError, e:
+                            except RhApiRowLimitError as e:
                                 if options.all:
                                     page = 0
-                                    print '<?xml version="1.0" encoding="UTF-8" standalone="no"?><data>', 
+                                    print ('<?xml version="1.0" encoding="UTF-8" standalone="no"?><data>'), 
                                     while (page * e.rowsLimit) < e.count:
                                         page = page + 1
                                         res = api.xml(arg, params = params, pagesize = e.rowsLimit, page = page, verbose = options.verbose)
                                         root = minidom.parseString(res).documentElement
                                         for row in root.getElementsByTagName('row'):
-                                            print row.toxml(),
+                                            print (row.toxml()),
                                     print '</data>'
                                 else:
                                     raise e
