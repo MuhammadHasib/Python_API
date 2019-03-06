@@ -340,16 +340,16 @@ class CLIClient:
                             except RhApiRowLimitError as e:
                                 if options.all:
                                     page = 0
-                                    print '{"data": [', 
+                                    print ('{"data": ['), 
                                     while (page * e.rowsLimit) < e.count:
                                         page = page + 1
                                         res = api.json(arg, params = params, pagesize = e.rowsLimit, page = page, verbose = options.verbose)
                                         comma = ','
                                         if page == 1: comma = ''
                                         for d in res['data']:
-                                            print comma, d,
+                                            print (comma, d),
                                             comma = ','
-                                    print "]}"
+                                    print ("]}")
                                 else:
                                     raise e
                         
