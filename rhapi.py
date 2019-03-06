@@ -1,6 +1,7 @@
-import urllib2
+import urllib
 import re
-import simplejson as json
+import json as simplejson
+#import simplejson as json
 import sys
 import xml.dom.minidom as minidom
 
@@ -70,8 +71,8 @@ class RhApi:
         # Constructing request path
         #
 
-        callurl = self.url + "/".join(urllib2.quote(str(p)) for p in parts)
-        callurl = callurl + "?" + "&".join(p + "=" + urllib2.quote(str(params[p])) for p in params.keys())
+        callurl = self.url + "/".join(urllib.quote(str(p)) for p in parts)
+        callurl = callurl + "?" + "&".join(p + "=" + urllib.quote(str(params[p])) for p in params.keys())
 
         sdata = None
         if data != None:
