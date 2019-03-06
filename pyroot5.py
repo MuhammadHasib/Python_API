@@ -1,6 +1,6 @@
 
 from rhapi import DEFAULT_URL, RhApi
-#api = RhApi(DEFAULT_URL, debug = False)
+api = RhApi(DEFAULT_URL, debug = False)
 
 API_URL = 'http://gem-machine-a:8113'
 q = 'select c.part_serial_number,c.IMON_UA, c.GAIN, c.GAIN_ERROR from gem_omds.c4260 c'
