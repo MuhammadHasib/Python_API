@@ -13,17 +13,17 @@ print (data)
 print api.folders()
 print ('a ')
 for f in api.folders():
-    print api.tables(f)
+    print (api.tables(f))
 print ('b ')
 
 q = "select r.runnumber from runreg_global.runs r where r.run_class_name = :class"
 p = {"class": "Collisions15" }
 qid = api.qid(q)
-print api.query(qid)
+print (api.query(qid))
 print ('c ')
 
-print api.count(qid, p)
-print api.csv(q, p)
-#print api.xml(q, p)
-print api.json(q, p)
+print (api.count(qid, p))
+print (api.csv(q, p))
+#print (api.xml(q, p))
+print (api.json(q, p))
 """
