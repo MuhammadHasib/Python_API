@@ -52,9 +52,9 @@ class RhApi:
         Print debug information
         """
         if self.debug: 
-            print "RhApi:",
+            print ("RhApi:"),
             for arg in args:
-                print arg, 
+                print (arg), 
             print
 
     def get(self, parts, data = None, headers = None, params = None, verbose = False, cols = False):
@@ -102,7 +102,7 @@ class RhApi:
             if re.search("json", resp.info().gettype()):
                 try:
                     return json.loads(rdata)
-                except TypeError, e:
+                except TypeError as e:
                     self.dprint(e)
                     return rdata
             else:
@@ -280,12 +280,12 @@ class CLIClient:
                             
                 if options.count:
                     
-                    print api.count(api.qid(arg), params = params, verbose = options.verbose)
+                    print (api.count(api.qid(arg), params = params, verbose = options.verbose))
                     
                 elif options.metadata:
                     
                     qid = api.qid(arg)
-                    print self.pprint(api.query(qid, verbose = options.verbose))
+                    print (self.pprint(api.query(qid, verbose = options.verbose)))
                         
                 else:
                     
@@ -300,7 +300,7 @@ class CLIClient:
                         
                         if options.format == 'csv':
                             try:
-                                print api.csv(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose)
+                                print (api.csv(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose))
                             except RhApiRowLimitError, e:
                                 if options.all:
                                     page = 0
@@ -308,15 +308,15 @@ class CLIClient:
                                         page = page + 1
                                         res = api.csv(arg, params = params, pagesize = e.rowsLimit, page = page, verbose = options.verbose)
                                         if page == 1:
-                                            print res,
+                                            print (res),
                                         else:
-                                            print '\n'.join(res.split('\n')[1:]),
+                                            print ('\n'.join(res.split('\n')[1:])),
                                 else:
                                     raise e
 
                         if options.format == 'xml':
                             try:
-                                print api.xml(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose)
+                                print (api.xml(arg, params = params, pagesize = options.size, page = options.page, verbose = options.verbose))
                             except RhApiRowLimitError, e:
                                 if options.all:
                                     page = 0
