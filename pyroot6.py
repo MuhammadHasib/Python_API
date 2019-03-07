@@ -60,8 +60,8 @@ for m in measurements:
 			logY.append( log( list_GAIN[i] ) )
 		gr = TGraphErrors( n, x, y, xErr, yErr )
 		# calculates the Pearson's correlation coefficient of (x,log y) values.
-                # i.e.: r = sum((xi - x_mean)(logYi - logY_mean)) / sqrt(sum((xi - x_mean)^2)) / sqrt(sum((logYi - logY_mean)^2))
-                logGraph = TGraph(n, x, logY)
+       		# i.e.: r = sum((xi - x_mean)(logYi - logY_mean)) / sqrt(sum((xi - x_mean)^2)) / sqrt(sum((logYi - logY_mean)^2))
+		logGraph = TGraph(n, x, logY)
 		gr.SetTitle( old_PART_SERIAL_NUMBER )
 		gr.GetXaxis().SetTitle( 'Divider current (uA)' )
 		gr.GetYaxis().SetTitle( 'gain (r = ' + str(logGraph.GetCorrelationFactor()) + ')' )
