@@ -77,7 +77,7 @@ for m in measurements:
 		list_GAIN_ERROR = [ m[3] ]
 
 # prints information on analyzed data. This information is generated with negligible processing cost.
-print 'data retrieved from '+str(measurementCount)+' measurements,'
-print 'distributed in '+str(graphCount)+' sets.'
+print ('data retrieved from '+str(measurementCount)+' measurements,')
+print ('distributed in '+str(graphCount)+' sets.')
 
 
