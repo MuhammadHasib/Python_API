@@ -50,7 +50,7 @@ for m in measurements:
 		#c.SetGrid()
 		# n is the number of points in the graph
 		n = len(list_IMON_UA)
-		print n
+		print(n)
 		x, y, y2, y2err, zeros = array('d'), array('d'), array('d'), array('d'), array('d')
 		for i in range( n ):
 			x.append( list_IMON_UA[i] )
