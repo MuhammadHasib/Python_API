@@ -6,7 +6,7 @@ from rhapi import RhApi
 API_URL = 'http://gem-machine-a:8113'
 q = 'select c.part_serial_number, c.VDRIFT_VLT, c.GAIN, c.GAIN_ERROR, c.RATE_HZ, c.RATE_ERROR_HZ from gem_omds.c4260 c'
 api = RhApi(API_URL, debug = False)
-print api.csv(q)
+print (api.csv(q))
 data = api.json(q)
 
 # initializes lists of parameters
