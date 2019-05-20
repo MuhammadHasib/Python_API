@@ -20,7 +20,7 @@ API_URL = 'http://gem-machine-a:8113'
 #q = 'select c.part_serial_number, c.IMON_UA, c.GAIN, c.GAIN_ERROR, c.RATE_HZ, c.RATE_ERROR_HZ from gem_omds.c4260 c'
 #q = 'select * from gem_omds.gem_chmbr_qc5_effgain_v c'
 api = RhApi(API_URL, debug = False)
-#print api.csv(q)
+print api.csv(q)
 data = api.json(q)
 
 
