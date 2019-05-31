@@ -8,7 +8,7 @@ API_URL = 'http://gem-machine-a:8113'
 q = 'select c.part_serial_number, c.incrmnt_sec, c.AMB_PRSR_MBAR, c.MANF_PRSR_MBAR, c.TEMP_DEGC from gem_omds.c1840 c'
 api = RhApi(API_URL, debug = False)
 data = api.json(q)
-print api.csv(q)
+#print api.csv(q)
 
 # initializes lists of parameters
 list_incrmnt_sec = []
